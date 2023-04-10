@@ -25,7 +25,17 @@
             <div>
                 <i class="fa-solid fa-message"></i>
                 <i class="fa-solid fa-bell"></i>
-                <img class="profile-pic" src=""></img>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="User" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                        <a asp-controller="User" asp-action="Register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                    }
+                    else{
+                       <a asp-controller="User" asp-action="Logout"> <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                        <a asp-controller="User" asp-action="Profile"><i class="fa fa-user" aria-hidden="true"></i></a>
+                    }
+               
+                
             </div>
         </div>
         

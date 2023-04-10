@@ -4,9 +4,10 @@
 @{
     List<Object> menuItems = new List<Object>();
     menuItems.Add(new { text = "Dashboard", url = "/", iconCss = "fa-box" });
+    if (User.Identity.IsAuthenticated) { 
     menuItems.Add(new { text="Categories",url="/Category",iconCss="fa-solid fa-folder-closed"});
     menuItems.Add(new { text = "Transactions", url = "/Transaction", iconCss="fa-solid fa-arrow-right-arrow-left "});
-
+    }
 }
 
 <ejs-sidebar id="sidebar" width="300px" enableDock target=".dock-target" enableGestures>

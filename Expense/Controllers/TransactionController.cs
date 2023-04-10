@@ -6,47 +6,60 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Expense.Models;
+using Expense.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Expense.Controllers
 {
     public class TransactionController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public TransactionController(ApplicationDbContext context)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public TransactionController(ApplicationDbContext context,IHttpContextAccessor contextAccessor)
         {
+            _contextAccessor = contextAccessor;
             _context = context;
         }
 
         // GET: Transaction
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Transcations.Include(t => t.Category);
+            var currentuderid = _contextAccessor.HttpContext.User.GetUserId();
+            var applicationDbContext = _context.Transcations.Include(t => t.Category).Where(x=>x.AppUserId==currentuderid);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Transaction/Create
+        [Authorize]
         public IActionResult AddOrEdit(int id=0)
         {
+            var currentuser = _contextAccessor.HttpContext.User.GetUserId();
             PopulateCategories();
             if (id == 0)
-                return View(new Transaction());
+            {
+                var newt = new Transaction();
+                newt.AppUserId = currentuser;
+                return View(newt);
+            }
             else
-                return View(_context.Transcations.Find(id));
+            return View(_context.Transcations.Find(id));
            
         }
 
         // POST: Transaction/C
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("TramscationId,CategoryId,Amount,Note,Date")] Transaction transaction)
+        [Authorize]
+        public async Task<IActionResult> AddOrEdit([Bind("TramscationId,CategoryId,AppUserId,Amount,Date,Note")] Transaction transaction)
         {
-           
+            var currentuser = _contextAccessor.HttpContext.User.GetUserId();
+            transaction.AppUserId = currentuser;
             if (ModelState.IsValid)
             {
+               
                 if (transaction.TramscationId == 0)
                 {
-                   
+                    //transaction.AppUserId = currentuser;
                     _context.Add(transaction);
                    
                 }

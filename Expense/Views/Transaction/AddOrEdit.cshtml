@@ -9,6 +9,7 @@
     <div class="col-md-7">
         <div class="widget p-5" style="background-color:#212b36">
         <form asp-action="AddOrEdit">
+                <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" name="TramscationId" value="@Model.TramscationId"/>
             <div class="mb-3">

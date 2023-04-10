@@ -1,0 +1,43 @@
+﻿@using Expense.Models.ViewModel;
+@model EditViewModel
+
+
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Number">Phone Number</label>
+        <input asp-for="Number" class="form-control" placeholder="Enter Phone Number">
+        <span asp-validation-for="Number" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Street">Street</label>
+        <input asp-for="Street" class="form-control" placeholder="Enter Stret">
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="City">City</label>
+        <input asp-for="City" class="form-control" placeholder="Enter City">
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Country">Country</label>
+        <input asp-for="Country" class="form-control" placeholder="Enter Country">
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+    <div class="form-row form-group">
+        <div class="col">
+            <input asp-for="Image" type="file" class="form-control form-control-lg" placeholder="Image" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a class="btn btn-secondary" asp-action="Profile">Discard</a>
+</form>

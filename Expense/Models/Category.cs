@@ -7,6 +7,10 @@ namespace Expense.Models
     {
         [Key]
         public int CategoryId { get; set; }
+
+        //public string AppUserId { get;set; }
+        //public AppUser? AppUser { get;set; }
+        
         [Column(TypeName="nvarchar(50)")]
         [Required(ErrorMessage ="Title is Required.")]
         public string Title { get; set; }

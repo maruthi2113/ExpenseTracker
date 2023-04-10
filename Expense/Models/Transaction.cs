@@ -8,7 +8,11 @@ namespace Expense.Models
     {
         [Key]
         public int TramscationId { get; set; }
-        [Range(1,int.MaxValue,ErrorMessage ="Please select a Category")]
+
+        public string AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a Category")]
+
         public int CategoryId { get; set; }
 
         public  Category? Category { get; set; }

@@ -1,0 +1,53 @@
+﻿@using Expense.Models.ViewModel;
+
+
+@model LoginViewModel
+
+@{
+    ViewData["Titlt"] = "Login";
+}
+
+Demo Logins:
+Admin=Adminone@gmail.com,Admintwo@gmail.com
+</br>
+users=Userone@gmail.com,Usertwo@gmail.com
+</br>
+Sellers=Sellerone@gmail.com,Sellertwo@gmail.com,Sellerthree@gmail.com
+</br>
+Password:Admin@123
+@*passwords:(Admin@123) for all*@
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+            <h4>Log in to your account</h4>
+        </p>
+        @if (TempData["Error"] != null)
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"]</span>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form method="post" asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-outline-success float right" type="submit" value="Login" />
+                        <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="btn btn-primary" asp-action="Forgotpassword">Forgot Password</a>
